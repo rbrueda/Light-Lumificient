@@ -1,2 +1,2 @@
-# Light-Lumificient-
+# Light-Lumificient
 Project for COMP-3710 
