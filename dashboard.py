@@ -2,13 +2,8 @@ from datetime import datetime
 import tkinter as tk
 from smart_device import SmartLight, Thermostat, SecurityCamera
 from automation_system import AutomationSystem
-import streamlit as st
 import pandas as pd
-import altair as alt
-from tkinter import ttk
-from tkinter import filedialog
-import webbrowser
-from tkhtmlview import HTMLLabel
+
 
 from data_visualization import DataVisualization
 import matplotlib.pyplot as plt

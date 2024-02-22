@@ -226,3 +226,4 @@
 2024-02-20 13:11:39 - Device: Living room Light, Status: True, Brightness: 75%
 2024-02-20 13:11:40 - Device: Living room Light, Status: False, Brightness: 0%
 2024-02-20 14:45:53 - Device: Living room Light, Status: True, Brightness: 49%
+2024-02-21 20:17:55 - Device: Living room Light, Status: True, Brightness: 15%
