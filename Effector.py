@@ -36,6 +36,7 @@ def generete_random_effectors(prolog):
         if v[0] == 'light':
             setEffectorValue(k, random.randint(0,10), prolog)
         elif v[0] == 'temp':
+            # TO DO: change!! - -heuristics
             setEffectorValue(k, random.randint(1,50), prolog)
 
 # reset all effectod to zero

@@ -67,11 +67,6 @@ frame3.pack(fill=BOTH, expand=True, side=LEFT)
 frame4.pack(fill=BOTH, expand=True, side=LEFT)
 
 
-
-
-
-     
-
 def modify_profile():
      window4 = tk.Tk()
      window4.title("Modify profile")
