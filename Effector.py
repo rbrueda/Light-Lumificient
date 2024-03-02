@@ -29,7 +29,7 @@ def setEffectorValue(effectorID, value, prolog):
     old_value = str(getEffectorValue(effectorID, prolog))
     list(prolog.query("replace_existing_fact(effectorValue(" + str(effectorID) +" ,"+str(old_value)+"), effectorValue(" + str(effectorID)+ ", "+str(value)+"))"))
     
-#generates random values for effector -- figure out purpose of this
+# think this will be effected but whatever A* algorithm outputs based off sensor values
 def generete_random_effectors(prolog):
     sensors = getAllEffectors(prolog)
     for k, v in sensors.items():

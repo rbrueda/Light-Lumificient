@@ -1,7 +1,26 @@
-setSensorValue(outside_brightness, 2)
+setSensorValue(outside_brightness, -90)
 setSensorValue(inside_brightness, 0)
-setSensorValue(inside_temperature, 9)
-setSensorValue(outside_temperature, 9)
-setSensorValue(outside_noise, 5)
-setSensorValue(outside_wind, 9)
-setSensorValue(outside_rain, 1)
+setSensorValue(inside_temperature, 5.4)
+setSensorValue(outside_temperature, 5.4)
+setSensorValue(outside_noise, 5.4)
+setSensorValue(outside_wind, 2.57)
+setSensorValue(outside_rain, 0)
+setSensorValue(outside_humidity, 6)
+setEffector(rs1,0).
+setEffector(rs2,0).
+setEffector(l1,5).
+setEffector(l2,5).
+setEffector(l3,5).
+setEffector(l4,5).
+setEffector(w1,0).
+setEffector(w2,0).
+setEffector(r,20).
+setEffector(ac,0).
+setEffector(w1,0).
+setEffector(w2,0).
+setEffector(r,20).
+setEffector(ac,0).
+set(music, light).
+set(music, temp).
+set(music, wind).
+set(music, noise).
