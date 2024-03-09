@@ -6,7 +6,6 @@ environmentCondition(temp).
 environmentCondition(noise).
 environmentCondition(wind).
 environmentCondition(rain).
-environmentCondition(humidity).
 
 % describes the different sensors adn their corresponding environmental conditions
 %sensor(SensorId, IdCondition).
@@ -18,7 +17,6 @@ sensor(outside_temperature, temp).
 sensor(outside_noise, noise).
 sensor(outside_wind, wind).
 sensor(outside_rain, rain).
-sensor(outside_humidity, humidity).
 
 
 % sets the initial sensor values here
@@ -32,7 +30,6 @@ sensorValue(inside_temperature, 30).
 sensorValue(outside_noise, 3).
 sensorValue(outside_wind, 0).
 sensorValue(outside_rain, 1).
-sensorValue(outside_humidity, 7). #this is represented in a scale of 1 to 10 where 7 represents 70% humidity
 
 % specifies the different effectors
 %effector(EffectorId, IdCondition).

@@ -3,9 +3,12 @@ import datetime
 
 class Weather:
     def __init__(self):
-
+        
         # get api key from external file
-        API_KEY = 'e96eaabd4215318eb360de442e41444f'
+        with open('credentials.txt', 'r') as f:
+            for content in f:
+                API_KEY = content
+
         city = 'Windsor'
         country_code = 'CA'
         url = f'http://api.openweathermap.org/data/2.5/weather?q={city},{country_code}&appid={API_KEY}'
@@ -17,7 +20,6 @@ class Weather:
         if response.status_code == 200:
             # Parse the JSON response
             data = response.json()
-            print(data)
             
             # Extract relevant information from the response
             # the description could also be important for training, especially to check if it is dark or sunny outside
