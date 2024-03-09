@@ -1,4 +1,4 @@
-% defines various conditions such as light, temp, noisem wind, rain
+% defines various conditions such as light, temp, noise, wind, rain
 % TO DO: add variables noise and rain to dashboard.py and add "humidity" to our training model
 %environmentCondition(IdCondition).
 environmentCondition(light).
@@ -20,7 +20,7 @@ sensor(outside_rain, rain).
 
 
 % sets the initial sensor values here
-% TO DO: change these values based off the data we have
+% UPDATE: we do not need to update these values in the code, the code will be updated without the need of assigning these
 %sensorValue(SensorId, Value).
 :-dynamic(sensorValue/2).
 sensorValue(inside_brightness, 0).
@@ -65,7 +65,7 @@ inside(ac).
 inside(r).
 
 % initial values for effectors
-% TO DO: MAYBE: change initial values based off the data we have
+% TO DO-- MAYBE: change initial values based off the data we have
 %effectorValue(EffectorId, Value).
 :-dynamic(effectorValue/2).
 effectorValue(l1, 0). /* main light */
@@ -80,8 +80,7 @@ effectorValue(r, 0). /* radiator */
 effectorValue(ac, 0). /* air conditioner */
 
 
-% define preferences for diff actions rearding environmental conditions
-% TO DO: change this based off user preferences and datasets given
+% define preferences for diff actions rearding environmental conditions - fix this code for no error!!
 % NOTE: these variables can be tested based off how we set up are adversial search
 %preference(IdAction, IdCondition, ExpectedValueSensor, Effectors).
 :-dynamic(preference/4).
