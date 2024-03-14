@@ -11,6 +11,7 @@ import Explanation
 import Profile
 from pyswip import Prolog
 from Sensor import *
+from datavisualization import DataVisualization
 
 #empty dictionary to store user preferences
 new_preference={}
@@ -187,22 +188,35 @@ for k, v in effectors.items():
     i=i+1
 
 
+
 def select_action(event):
-      Effector.resetEffectors(prolog)
-      Effector.checkPreferences(action_selected.get(), prolog)
-      effectors = Effector.getAllEffectors(prolog)
+     logic = []
+     Effector.resetEffectors(prolog)
+     Effector.checkPreferences(action_selected.get(), prolog)
+     effectors = Effector.getAllEffectors(prolog)
     
-      i=0
-      for k, v in effectors.items():
-            label_effector_name = tk.Label(frame4, text=k, font=("Microsoft YaHei",10))
-            label_effector_name.grid(row=i, column=0, pady=7, padx=10)
+     i=0
+     for k, v in effectors.items():
+          label_effector_name = tk.Label(frame4, text=k, font=("Microsoft YaHei",10))
+          label_effector_name.grid(row=i, column=0, pady=7, padx=10)
 
-            label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
-            label_effector_value.grid(row=i, column=1, pady=7, padx=10)
+          label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
+          logic.append(v[1])
+          label_effector_value.grid(row=i, column=1, pady=7, padx=10)
 
-            i=i+1
+          i=i+1
+     
+     #this should be from astar algorithm
+          
+     print(action_selected.get())
+     value2 = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0] 
 
-      
+
+     data = DataVisualization(logic, value2)
+     
+     
+     
+
 
 action_combobox.bind("<<ComboboxSelected>>", select_action)
 
