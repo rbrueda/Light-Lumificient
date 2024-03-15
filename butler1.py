@@ -7,7 +7,7 @@ import queue
 class Butler:
     def __init__(self):
 
-        # Constants for energy consumption (adjust as needed)
+        # Constants for light energy consumption (adjust as needed)
         self.ENERGY_CONSUMPTION = {
             'L1': 0.5,  # Energy consumption rate for light fixture L1
             'L2': 0.7,  # Energy consumption rate for light fixture L2
@@ -20,6 +20,26 @@ class Butler:
         self.EFFICIENCY = 0.05
 
         self.lights = ['L1', 'L2', 'L3', 'L4']
+
+
+        # Constants for temperature
+        self.RESTINC = 2
+        self.HEATINC = 5
+        self.COOLINC = 5
+        self.ENERGYCOST = 10
+        self.MAXTEMP = 50
+        self.MINTEMP = 0
+        self.EFFICIENCY = 0.05
+        
+        # Magic numbers for temperature
+        self.REST = 0
+        self.HEAT = 1
+        self.COOL = 2
+
+
+
+#IDEA: MAKE TWO HEURISTIC INTENSITY BRIGHTNESSES -- ONE WHERE OUTSIDE BRIGHTNESS PLAYS EFFECT AND
+        #-- ONE WHERE OUTSIDE BRIGHTNESS PLAYS NO EFFECT
 
         #based off checking the location of light relative to action
         #we are also basing off light based off outside 
@@ -64,7 +84,8 @@ class Butler:
             'W2' : 0.5
         }
 
-    def getCost(self, lights):
+    # Light Util
+    def getLightCost(self, lights):
         #the cost is based on individual light intensities, and energy consumption rate (closer to 1 -- higher consumption rate, closer to 0 -- lower consumption rate)
         cost = self.ENERGY_CONSUMPTION['L1']*lights['L1'] + self.ENERGY_CONSUMPTION['L2']*lights['L2'] + self.ENERGY_CONSUMPTION['L3']*lights['L3'] + self.ENERGY_CONSUMPTION['L4']*lights['L4']
         return cost
@@ -94,6 +115,9 @@ class Butler:
         return distance_to_target
 
     # idea: add each device by 1 until we get to goal -- this might not be as efficient but is pretty accurate (we can change this later based on other heuristics)
+
+    # Light A*
+    #this is just a modified version of UFS with the heuristics
     def AStarLight(self, initialLights, targetBrightness, outsideBrightness, option, shutter_status):
         #gets the intensity per light heuristic
         if (option == 'sleep'):
@@ -114,7 +138,7 @@ class Butler:
 
         brightnessStats = self.getTotalBrightness(initialLights, shutter_status, outsideBrightness, intensity)
         print(f"current brightness: {brightnessStats[0]}")
-        nextCost = self.getCost(initialLights)
+        nextCost = self.getLightCost(initialLights)
         nextH = self.heuristic_function(brightnessStats[1], targetBrightness, outsideBrightness)
         totCost = nextCost+nextH 
         print(f"total cost: {totCost}")
@@ -155,9 +179,11 @@ class Butler:
                         continue
                     next_state[light] -= 1
 
-                brightnessStats = self.getTotalBrightness(next_state, shutter_status, outsideBrightness, intensity)               
+                print(next_state)
+                brightnessStats = self.getTotalBrightness(next_state, shutter_status, outsideBrightness, intensity)
                 
-                nextCost = self.getCost(next_state)  
+                
+                nextCost = self.getLightCost(next_state)  
                 nextH = self.heuristic_function(brightnessStats[1], targetBrightness, outsideBrightness)
                 totCost = nextCost+nextH                 #calculate f=g+h -> cost to reach node + additional heuristic cost. also, energy efficiency but it shouldnt have as much of an impact on the next choice as reaching the goal quickly should
                 
@@ -173,6 +199,46 @@ class Butler:
                         # value 4: light values
                         q.put((totCost, brightnessStats[0],curr[2]+ " --> " +str(light), next_state))
 
+
+    # Temperature Util
+    def getTemp(self, choice, current, outside):
+        if choice == self.REST:
+            return current-self.RESTINC if current>outside else current+self.RESTINC
+        elif choice == self.HEAT:
+            return current+self.HEATINC
+        else: 
+            return current-self.COOLINC
+    
+    def getCost(self, choice):
+        return 0 if choice == self.REST else self.ENERGYCOST
+                        
+    # Temperature A*
+    def aStar(self, goal, outside):
+    
+        # initialise
+        minCosts = [99999 for i in range(self.MAXTEMP)]                  #value at index i will indicate minimum cost (energy+distance from goal) to reach temperature i
+        q = queue.PriorityQueue()
+        q.put((0, outside, 0, ""))                                     #total cost, current temp (starts at outside/initial), energy cost so far, path of choices (temp for tracing)
+
+        # search
+        while not q.empty():
+            curr = q.get()                                          #dequeues lowest cost node, essentially picking best out of current options to expand
+
+            if curr[1] == goal:
+                return curr
+
+            for i in range(3):                                      
+                nextTemp = self.getTemp(i, curr[1], outside)
+                nextCost = self.getCost(i)
+                nextH = abs(goal-nextTemp)
+                totCost = nextCost*self.EFFICIENCY+nextH                 #calculate f=g+h -> cost to reach node + additional heuristic cost. also, energy efficiency but it shouldnt have as much of an impact on the next choice as reaching the goal quickly should
+                if totCost < minCosts[nextTemp]:                    #if we previously had a less effective way to reach this temperature, replace it with this way. if there is already a more effective way to reach this point, don't bother continuing this path
+                    minCosts[nextTemp] = totCost
+                    if nextTemp > self.MINTEMP and nextTemp < self.MAXTEMP:
+                        q.put((totCost,nextTemp,nextCost,curr[3]+str(i)))
+
+
+# is this main() ?
 #note - these variables will change since they will be based by gui
 targetBrightness = 10 
 outsideBrightness = 1
@@ -182,3 +248,5 @@ shutter_status = False #assume shutters are open -- these will only be true if i
 butler = Butler()
 result = butler.AStarLight(initialLights, targetBrightness, outsideBrightness, option, shutter_status)
 
+print("\n")
+print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.aStar(20,10)))

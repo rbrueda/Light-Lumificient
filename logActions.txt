@@ -1,9 +1,9 @@
-setSensorValue(outside_brightness, 0)
+setSensorValue(outside_brightness, 8)
 setSensorValue(inside_brightness, 5)
 setSensorValue(inside_temperature, 0)
-setSensorValue(outside_temperature, 17)
-setSensorValue(outside_noise, 17)
-setSensorValue(outside_wind, 3)
+setSensorValue(outside_temperature, 16)
+setSensorValue(outside_noise, 16)
+setSensorValue(outside_wind, 5)
 setSensorValue(outside_rain, 0)
 setEffector(rs1,0).
 setEffector(rs2,0).

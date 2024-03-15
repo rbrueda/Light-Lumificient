@@ -46,6 +46,8 @@ def simulate_sensors():
 # initializes prolog engine and creates main GUI window with specified title, size and settings
 initialize_prolog()
 window = tk.Tk()
+window.attributes('-fullscreen', True)
+window.overrideredirect(True)
 
 window.title("Smart Room")
 window.geometry("1000x1000")
