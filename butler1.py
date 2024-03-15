@@ -15,21 +15,16 @@ class Butler:
             'L4': 0.8   # Energy consumption rate for light fixture L4
         }
 
-        # Constants, we can change later -- best way for now is increase or decrease certain light by 1
-        # RESTINC = 2
-        # BRIGHTINC = 3
-        # DIMC = 5
         self.MAXBRIGHTNESS = 10
         self.MINBRIGHTNESS = 0
-        self.EFFICIENCY = 0.05 # use later
+        self.EFFICIENCY = 0.05
 
         self.lights = ['L1', 'L2', 'L3', 'L4']
 
-#IDEA: MAKE TWO HEURISTIC INTENSITY BRIGHTNESSES -- ONE WHERE OUTSIDE BRIGHTNESS PLAYS EFFECT AND
-        #-- ONE WHERE OUTSIDE BRIGHTNESS PLAYS NO EFFECT
-
         #based off checking the location of light relative to action
         #we are also basing off light based off outside 
+        # inside brightness values -> add up to 1
+        # outside brightness values -> add up to 1
         self.heuristics_sleep = {
             'L1' : 0.26,
             'L2' : 0.04,
@@ -39,7 +34,6 @@ class Butler:
             'W2' : 0.3
         }
 
-        #all values should add up to 1
         self.heuristics_study = {
             'L1' : 0.26,
             'L2' : 0.7,
@@ -100,8 +94,6 @@ class Butler:
         return distance_to_target
 
     # idea: add each device by 1 until we get to goal -- this might not be as efficient but is pretty accurate (we can change this later based on other heuristics)
-
-    #this is just a modified version of UFS with the heuristics
     def AStarLight(self, initialLights, targetBrightness, outsideBrightness, option, shutter_status):
         #gets the intensity per light heuristic
         if (option == 'sleep'):
@@ -129,18 +121,14 @@ class Butler:
         minCosts[brightnessStats[0]*10] = totCost
         q.put((totCost,brightnessStats[0],"", initialLights))
 
-
-
-        #terminates before getting to curr[1] == targetBrightness
+        #iterates until queue is empty
         while not q.empty():
-            #get the min element using the priorty queue -> use the heapq library
+            #get the min element using the priorty queue
             curr = q.get()
-            
-            print(f"current state: {curr}")
+            print(f"current successor: {curr}")
 
             # round brightness to a whole number
             successor_brightness = round(curr[1])
-            print(f"successorbrightness = {successor_brightness}")
 
             # case 1: lights reach target brightness
             if successor_brightness == targetBrightness:
@@ -153,13 +141,11 @@ class Butler:
 
             #traverse through all the lights in the smart home
             for light, brightness in curr[3].items():
-                print(light)
 
-                
-
+                # make a copy of light fixture brightnesses
                 next_state = dict(curr[3])
 
-                # we are going to assume next brightness will get -- for now curr[3] = listOfLights -- we are going to increase one of the lights by 1 or -1 depending on current status
+                # we are going to increase one of the lights by 1 or -1 depending on current status
                 if successor_brightness < targetBrightness:
                     if (next_state[light] > 9):
                         continue
@@ -169,36 +155,30 @@ class Butler:
                         continue
                     next_state[light] -= 1
 
-                print(next_state)
-                brightnessStats = self.getTotalBrightness(next_state, shutter_status, outsideBrightness, intensity)
-                
+                brightnessStats = self.getTotalBrightness(next_state, shutter_status, outsideBrightness, intensity)               
                 
                 nextCost = self.getCost(next_state)  
                 nextH = self.heuristic_function(brightnessStats[1], targetBrightness, outsideBrightness)
                 totCost = nextCost+nextH                 #calculate f=g+h -> cost to reach node + additional heuristic cost. also, energy efficiency but it shouldnt have as much of an impact on the next choice as reaching the goal quickly should
                 
-                print(f"minCost: {minCosts[brightnessStats[0]*10]}")
-                if totCost < minCosts[brightnessStats[0]*10]:                    #if we previously had a less effective way to reach this temperature, replace it with this way. if there is already a more effective way to reach this point, don't bother continuing this path
+                #checks if totcost is less than the current min cost that the brightness level
+                if totCost < minCosts[brightnessStats[0]*10]:                    
                     minCosts[brightnessStats[0]*10] = totCost
-                    if brightnessStats[0] >= self.MINBRIGHTNESS and brightnessStats[0] <= self.MAXBRIGHTNESS:
-                        #to do - make a list of values to add and subtract in order to get total cost
+                    # check if total brightness value are in range
+                    if round(brightnessStats[0]) >= self.MINBRIGHTNESS and round(brightnessStats[0]) <= self.MAXBRIGHTNESS:
                         # priority queue:
                         # value 1: total cost -- this should get min every time
                         # value 2: current brightness
                         # value 3: path for queue
                         # value 4: light values
-                        print(f"1 nextBrightness: {brightnessStats[0]}")
-                        print(f"1 total cost: {totCost}")
-                        print(f"1 next state: {next_state}")
                         q.put((totCost, brightnessStats[0],curr[2]+ " --> " +str(light), next_state))
 
 #note - these variables will change since they will be based by gui
-targetBrightness = 10 #this is will change later
+targetBrightness = 10 
 outsideBrightness = 1
-initialLights = {'L1': 0, 'L2': 0, 'L3': 0, 'L4': 0} #think im going to keep this
+initialLights = {'L1': 0, 'L2': 0, 'L3': 0, 'L4': 0} #set this as arbitrary default brightness level per fixture
 option = 'study'
-shutter_status = False #assume shutters are open -- 
+shutter_status = False #assume shutters are open -- these will only be true if it is night time
 butler = Butler()
 result = butler.AStarLight(initialLights, targetBrightness, outsideBrightness, option, shutter_status)
-print(result)
 

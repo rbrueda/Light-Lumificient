@@ -23,7 +23,7 @@ class DataVisualization:
         
         plt.xlabel("Devices") 
         plt.ylabel("Device Level") 
-        plt.title("Statics for Different Device States") 
+        plt.title("Statistics for Different Device States") 
         
         # plt.grid(linestyle='--') 
         plt.xticks(r + width/2,['AC','R','W1','W2', 'L1', 'L2', 'L3', 'L4', 'RS1', 'RS2']) 
