@@ -1,4 +1,4 @@
 test.py
 pyowm
 credentials.txt
-__pycache__
+/__pycache__

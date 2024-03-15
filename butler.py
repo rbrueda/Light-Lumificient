@@ -36,11 +36,6 @@ class Butler:
         self.HEAT = 1
         self.COOL = 2
 
-
-
-#IDEA: MAKE TWO HEURISTIC INTENSITY BRIGHTNESSES -- ONE WHERE OUTSIDE BRIGHTNESS PLAYS EFFECT AND
-        #-- ONE WHERE OUTSIDE BRIGHTNESS PLAYS NO EFFECT
-
         #based off checking the location of light relative to action
         #we are also basing off light based off outside 
         # inside brightness values -> add up to 1
@@ -98,8 +93,6 @@ class Butler:
 
         #weighted sum with the intensities
         totalBrightness = intensity['L1']*lightLevels['L1'] + intensity['L2']*lightLevels['L2'] + intensity['L3']*lightLevels['L3'] + intensity['L4']*lightLevels['L4'] + intensity['W1']*outside*status + intensity['W2']*outside*status   
-        print(f"total brightness: {totalBrightness}")
-        print(f"brightness: {round(totalBrightness)}")
 
         # returns a array
         # array[0] = brightness rounded to 1 dp
@@ -110,8 +103,7 @@ class Butler:
     def heuristic_function(self, state, target_brightness, outside_brightness):
         # Calculate heuristic value actual brightness (decimal value) and target brightness
         distance_to_target = abs(target_brightness - state)
-        
-        print(f"distance to target: {distance_to_target}")
+
         return distance_to_target
 
     # idea: add each device by 1 until we get to goal -- this might not be as efficient but is pretty accurate (we can change this later based on other heuristics)
@@ -137,11 +129,9 @@ class Butler:
         minCosts = {brightness: float('inf') for brightness in range(self.MAXBRIGHTNESS*10)}
 
         brightnessStats = self.getTotalBrightness(initialLights, shutter_status, outsideBrightness, intensity)
-        print(f"current brightness: {brightnessStats[0]}")
         nextCost = self.getLightCost(initialLights)
         nextH = self.heuristic_function(brightnessStats[1], targetBrightness, outsideBrightness)
         totCost = nextCost+nextH 
-        print(f"total cost: {totCost}")
         minCosts[brightnessStats[0]*10] = totCost
         q.put((totCost,brightnessStats[0],"", initialLights))
 
@@ -156,7 +146,6 @@ class Butler:
 
             # case 1: lights reach target brightness
             if successor_brightness == targetBrightness:
-                print(f"final queue: {curr}")
                 return [curr[3], False] #gets the light fixture brightnesses and False shutter status
             
             # case 2: lights are minimized, but target brightness cannot be reached
@@ -179,7 +168,6 @@ class Butler:
                         continue
                     next_state[light] -= 1
 
-                print(next_state)
                 brightnessStats = self.getTotalBrightness(next_state, shutter_status, outsideBrightness, intensity)
                 
                 
@@ -247,6 +235,8 @@ option = 'study'
 shutter_status = False #assume shutters are open -- these will only be true if it is night time
 butler = Butler()
 result = butler.AStarLight(initialLights, targetBrightness, outsideBrightness, option, shutter_status)
+print(result[0])
 
 print("\n")
 print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.aStar(20,10)))
+
