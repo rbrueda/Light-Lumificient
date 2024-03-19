@@ -2,7 +2,6 @@ from pyswip import Prolog
 import random
 
 # retrieves all effectors and their values from Prolog
-#parsws them to a dictionary??
 def getAllEffectors(prolog):
     effectorList = list(prolog.query("effector(X,Y)"))
     dictEffector = {}

@@ -1,8 +1,6 @@
-# look into code 
-
 def getProfile(prolog):
     actions=['study', 'movie', 'sleep', 'clean', 'music']
-    # to do : humidity
+
     type = ['light', 'temp', 'wind', 'noise' ]
 
     text=""

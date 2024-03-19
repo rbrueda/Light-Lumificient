@@ -5,7 +5,7 @@
 import queue
 
 class Butler:
-    def __init__(self):
+    def __init__(self): 
 
         # Constants for light energy consumption (adjust as needed)
         self.ENERGY_CONSUMPTION = {
@@ -79,6 +79,16 @@ class Butler:
             'W2' : 0.5
         }
 
+        # we can assume user is watching movie in bench near bed
+        self.heuristics_movie = {
+            'L1' : 0.8,
+            'L2' : 0.15,
+            'L3' : 0.025,
+            'L4' : 0.025,
+            'W1' : 0.9,
+            'W2' : 0.1
+        }
+
     # Light Util
     def getLightCost(self, lights):
         #the cost is based on individual light intensities, and energy consumption rate (closer to 1 -- higher consumption rate, closer to 0 -- lower consumption rate)
@@ -120,6 +130,8 @@ class Butler:
             intensity = self.heuristics_music
         elif (option == 'clean'):
             intensity = self.heuristics_clean
+        elif (option == 'movie'):
+            intensity = self.heuristics_movie
 
 
         #implementation of priority queue

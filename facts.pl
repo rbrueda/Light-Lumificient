@@ -1,5 +1,4 @@
 % defines various conditions such as light, temp, noise, wind, rain
-% TO DO: add variables noise and rain to dashboard.py and add "humidity" to our training model
 %environmentCondition(IdCondition).
 environmentCondition(light).
 environmentCondition(temp).
@@ -20,7 +19,6 @@ sensor(outside_rain, rain).
 
 
 % sets the initial sensor values here
-% UPDATE: we do not need to update these values in the code, the code will be updated without the need of assigning these
 %sensorValue(SensorId, Value).
 :-dynamic(sensorValue/2).
 sensorValue(inside_brightness, 0).
@@ -65,7 +63,6 @@ inside(ac).
 inside(r).
 
 % initial values for effectors
-% TO DO-- MAYBE: change initial values based off the data we have
 %effectorValue(EffectorId, Value).
 :-dynamic(effectorValue/2).
 effectorValue(l1, 0). /* main light */
@@ -81,7 +78,6 @@ effectorValue(ac, 0). /* air conditioner */
 
 
 % define preferences for diff actions rearding environmental conditions - fix this code for no error!!
-% NOTE: these variables can be tested based off how we set up are adversial search
 %preference(IdAction, IdCondition, ExpectedValueSensor, Effectors).
 :-dynamic(preference/4).
 preference(nullPreference, _, 0, []).
@@ -103,7 +99,7 @@ preference(movie, temp, 25, [r, w1, w2, ac]).
 preference(movie, wind, 3, [w1,w2]). /* close windows for wind*/
 preference(movie, noise, 0, [ac, w1, w2]).
 
-preference(clean, light, 10, [l1, rs1, rs2]). /* if clean only roller s*/
+preference(clean, light, 10, [l1, rs1, rs2]). /* if clean only roller s */
 preference(clean, temp, 20, [r, ac, w1,w2]). /* open windows */
 preference(clean, wind, 5, [w1,w2]). /* open windows for wind*/
 preference(clean, noise, 6, [ac, w1, w2]). /* close windows for noise*/
