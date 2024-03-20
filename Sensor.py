@@ -57,63 +57,63 @@ def generete_random_sensors(prolog):
                 # december
                 if date.month in [12]:
                     #average sunrise and sunset times per month
-                    if (timestamp >= datetime.time(18, 40, 0) or timestamp <= (6, 0, 0) ):
+                    if (timestamp >= datetime.time(18, 40, 0) or timestamp <= datetime.time(6, 0, 0) ):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # january
                 if date.month in [1]:
-                    if (timestamp >= datetime.time(19, 0, 0) or timestamp <= (6, 30, 0)):
+                    if (timestamp >= datetime.time(19, 0, 0) or timestamp <= datetime.time(6, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # february
                 if date.month in [2]:
-                    if (timestamp >= datetime.time(19, 30, 0) or timestamp <= (6, 0, 0)):
+                    if (timestamp >= datetime.time(19, 30, 0) or timestamp <= datetime.time(6, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # march
                 if date.month in [3]:
-                    if (timestamp >= datetime.time(20, 30, 0) or timestamp <= (6, 0, 0)):
+                    if (timestamp >= datetime.time(20, 30, 0) or timestamp <= datetime.time(6, 0, 0)):
                         print("here")
                         n = 0
                         setSensorValue(k, n, prolog)
                 # april
                 if date.month in [4]:
-                    if (timestamp >= datetime.time(21, 30, 0) or timestamp <= (5, 30, 0)):
+                    if (timestamp >= datetime.time(21, 30, 0) or timestamp <= datetime.time(5, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # may
                 if date.month in [5]:
-                    if (timestamp >= datetime.time(22, 30, 0) or timestamp <= (4, 30, 0)):
+                    if (timestamp >= datetime.time(22, 30, 0) or timestamp <= datetime.time(4, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # june
                 if date.month in [6]:
-                    if (timestamp >= datetime.time(23, 0, 0) or timestamp <= (4, 0, 0)):
+                    if (timestamp >= datetime.time(23, 0, 0) or timestamp <= datetime.time(4, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # july
                 if date.month in [7]:
-                    if (timestamp >= datetime.time(23, 0, 0) or timestamp <= (4, 30, 0)):
+                    if (timestamp >= datetime.time(23, 0, 0) or timestamp <= datetime.time(4, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # august
                 if date.month in [8]:
-                    if (timestamp >= datetime.time(22, 30, 0) or timestamp <= (5, 0, 0)):
+                    if (timestamp >= datetime.time(22, 30, 0) or timestamp <= datetime.time(5, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 # september
                 if date.month in [9]:
-                    if (timestamp >= datetime.time(21, 30, 0) or timestamp <= (5, 30, 0)):
+                    if (timestamp >= datetime.time(21, 30, 0) or timestamp <= datetime.time(5, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 #october
                 if date.month in [10]:
-                    if (timestamp >= datetime.time(20, 30, 0) or timestamp <= (6, 0, 0)):
+                    if (timestamp >= datetime.time(20, 30, 0) or timestamp <= datetime.time(6, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
                 #november
                 if date.month in [11]:
-                    if (timestamp >= datetime.time(19, 0, 0) or timestamp <= (5, 30, 0)):
+                    if (timestamp >= datetime.time(19, 0, 0) or timestamp <= datetime.time(5, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
 
