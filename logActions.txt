@@ -23,3 +23,23 @@ set(sleep, light).
 set(sleep, temp).
 set(sleep, wind).
 set(sleep, noise).
+setEffector(rs1,0).
+setEffector(rs2,0).
+setEffector(l1,5).
+setEffector(l2,5).
+setEffector(l3,5).
+setEffector(l4,5).
+setEffector(w1,0).
+setEffector(w2,0).
+setEffector(w1,0).
+setEffector(w2,0).
+setEffector(ac,20).
+setEffector(r,0).
+setEffector(w1,0).
+setEffector(w2,0).
+setEffector(ac,20).
+setEffector(r,0).
+set(music, light).
+set(music, temp).
+set(music, wind).
+set(music, noise).
