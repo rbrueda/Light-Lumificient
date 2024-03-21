@@ -43,6 +43,7 @@ def generete_random_sensors(prolog):
     print(f"time: {timestamp}")
 
     f = open("logActions.txt", "w")
+    f2 = open("sensorvals.txt", "w")
 
     for k, v in sensors.items():
         if v[0] == 'light':
@@ -151,8 +152,7 @@ def generete_random_sensors(prolog):
         # print in the logActionas file the string setSensorValue(k, n)
             #! what is the purpose of this??
         f.write("setSensorValue("+k+", "+str(n)+")\n")
+        f2.write(k + "," + str(n) + "\n")
+
     f.close()
-
-
-
-
+    f2.close()

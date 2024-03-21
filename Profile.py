@@ -5,7 +5,11 @@ def getProfile(prolog):
     # to do : humidity
     type = ['light', 'temp', 'wind', 'noise' ]
 
+    f = open("profilevals.txt", "w")
+
     text=""
+    ftext = ""
+
     for act in actions:
         if act=="movie":
              action="watching a movie "
@@ -13,11 +17,19 @@ def getProfile(prolog):
             action="listening music"
         else: 
             action= act +"ing"
+
         text = text + "While the user is " + action + ", he/she want: \n"
+
         for t in type:
             preference = list(prolog.query("preference(" + act + ", " + t + ", V, E)"))
             text = text + t + " " + str(preference[0]['V']) + "\n"
+            ftext += act + "," + t + "," + str(preference[0]['V']) + "\n"
+
         text = text +"\n\n"
+
+    f.write(ftext)
+    f.close()
+    
     return text
 
 def updateFacts(prolog, new_profile):

@@ -7,6 +7,56 @@ import queue
 class Butler:
     def __init__(self):
 
+        f = open("sensorvals.txt")
+        lines = f.readlines()
+
+        sensor_values = {}
+
+        for line in lines:
+            k, v = line.strip().split(',')
+            sensor_values[k] = int(v)
+
+        f.close()
+
+        f = open("profilevals.txt")
+        lines = f.readlines()
+
+        study_values = {}
+        movie_values = {}
+        sleep_values = {}
+        clean_values = {}
+        music_values = {}
+
+        for line in lines:
+            act, k, v = line.strip().split(',')
+            if act == "study":
+                study_values[k] = int(v)
+            elif act == "movie":
+                movie_values[k] = int(v)
+            elif act == "sleep":
+                sleep_values[k] = int(v)
+            elif act == "clean":
+                clean_values[k] = int(v)
+            elif act == "music":
+                music_values[k] = int(v)
+
+        f.close()
+
+        self.outside_brightness = sensor_values['outside_brightness']
+        self.outside_temperature = sensor_values['outside_temperature']
+
+        self.study_brightness = study_values['light']
+        self.movie_brightness = movie_values['light']
+        self.sleep_brightness = sleep_values['light']
+        self.clean_brightness = clean_values['light']
+        self.music_brightness = music_values['light']
+
+        self.study_temperature = study_values['temp']
+        self.movie_temperature = movie_values['temp']
+        self.sleep_temperature = sleep_values['temp']
+        self.clean_temperature = clean_values['temp']
+        self.music_temperature = music_values['temp']
+
         # Constants for light energy consumption (adjust as needed)
         self.ENERGY_CONSUMPTION = {
             'L1': 0.5,  # Energy consumption rate for light fixture L1
@@ -239,4 +289,3 @@ print(result[0])
 
 print("\n")
 print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.aStar(20,10)))
-
