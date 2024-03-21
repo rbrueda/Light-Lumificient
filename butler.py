@@ -201,7 +201,7 @@ class Butler:
         return 0 if choice == self.REST else self.ENERGYCOST
                         
     # Temperature A*
-    def aStar(self, goal, outside):
+    def AStarTemp(self, goal, outside):
     
         # initialise
         minCosts = [99999 for i in range(self.MAXTEMP)]                  #value at index i will indicate minimum cost (energy+distance from goal) to reach temperature i
@@ -228,6 +228,7 @@ class Butler:
 
 # is this main() ?
 #note - these variables will change since they will be based by gui
+print("why running")
 targetBrightness = 10 
 outsideBrightness = 1
 initialLights = {'L1': 0, 'L2': 0, 'L3': 0, 'L4': 0} #set this as arbitrary default brightness level per fixture
@@ -238,5 +239,5 @@ result = butler.AStarLight(initialLights, targetBrightness, outsideBrightness, o
 print(result[0])
 
 print("\n")
-print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.aStar(20,10)))
+print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.AStarTemp(20,10)))
 

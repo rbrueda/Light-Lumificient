@@ -12,6 +12,7 @@ import Profile
 from pyswip import Prolog
 from Sensor import *
 from datavisualization import DataVisualization
+from butler import Butler                         #FIXME: remove extra testing code in butler.py [it runs when imported]
 
 #empty dictionary to store user preferences
 new_preference={}
@@ -156,6 +157,31 @@ def show_profile():
      window3.mainloop()
 
 
+#ac(AC), radiator(R), window1(W1), window2(W2), L1-4, RS1/2 ???
+def showAstar():
+     print("showing astar vals")
+     Effector.generete_random_effectors(prolog)
+     effectors = Effector.getAllEffectors(prolog)
+     labels = ["AC", "R", "W1", "W2", "L1", "L2", "L3", "L4", "RS1", "RS2"]
+     i=0
+     for k, v in effectors.items():
+          k=k.upper()
+          label_effector_name = tk.Label(frame4, text=k, font=("Microsoft YaHei",10))
+          label_effector_name.grid(row=i, column=0, pady=7, padx=10)
+
+          label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
+          label_effector_value.grid(row=i, column=1, pady=7, padx=10)
+
+          i=i+1
+
+
+    #butler = Butler()
+    #print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.AStarTemp(20,10)))
+
+
+
+
+
 button_simulate = tk.Button(frame1, text="Profile", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=show_profile)
 button_simulate.place(x=20, y=20)
 
@@ -176,6 +202,8 @@ action_combobox.pack(pady=5)
 action_combobox["state"] = "readonly"
 
 
+# Displaying original simulation's effector values
+#? what do the numbers actually mean? Like AC=1 means? R=7 means? Set to 7deg? At level 7? Turned on 7 times?
 Effector.generete_random_effectors(prolog)
 effectors = Effector.getAllEffectors(prolog)
 i=0
@@ -189,6 +217,27 @@ for k, v in effectors.items():
 
     i=i+1
 
+
+# Displaying A* effector values
+#* idk what the old values actually mean, but for temp: AC/R value will indicate the number of times it was turned on. 
+#* altho in general more useful comparison metric would be how long did it take to reach our target compared to above (len(path)), or cost of ours vs theirs, but idk what theirs is... unless we calculate it ourselves (not hard tbf). ig thats a somewhere else problem tho
+vals = [0 for i in range(10)]                     #AC, R, W1, W2, L1, L2, L3, L4, RS1, RS2
+
+butler = Butler()                                 
+
+tempVals = butler.AStarTemp(20,10)                #*temporary input vals, will get these from lamina
+vals[0] = tempVals[3].count(str(butler.COOL))     #gets number of time ac was used to reach user's target goal based on outside temperature *could just return these from astar in the future, but for now not sure what we'll need later
+vals[1] = tempVals[3].count(str(butler.HEAT))
+
+lightVals = butler.AStarLight({'L1': 0, 'L2': 0, 'L3': 0, 'L4': 0}, 10, 1, 'study', False)          #*temporary input values til lamina gets them
+vals[4] = lightVals[0]['L1']
+vals[5] = lightVals[0]['L2']
+vals[6] = lightVals[0]['L3']
+vals[7] = lightVals[0]['L4']
+
+for i,v in enumerate(vals):
+     label_effector_value = tk.Label(frame4, text=v, font=("Microsoft YaHei",10))
+     label_effector_value.grid(row=i, column=2, pady=7, padx=10)
 
 
 def select_action(event):
