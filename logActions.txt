@@ -7,21 +7,17 @@ setSensorValue(outside_wind, 9)
 setSensorValue(outside_rain, 0)
 setEffector(rs1,0).
 setEffector(rs2,0).
-setEffector(l1,5).
-setEffector(l2,5).
 setEffector(l3,5).
 setEffector(l4,5).
 setEffector(w1,0).
 setEffector(w2,0).
+setEffector(r,25).
+setEffector(ac,0).
 setEffector(w1,0).
 setEffector(w2,0).
-setEffector(ac,20).
-setEffector(r,0).
-setEffector(w1,0).
-setEffector(w2,0).
-setEffector(ac,20).
-setEffector(r,0).
-set(music, light).
-set(music, temp).
-set(music, wind).
-set(music, noise).
+setEffector(r,25).
+setEffector(ac,0).
+set(movie, light).
+set(movie, temp).
+set(movie, wind).
+set(movie, noise).

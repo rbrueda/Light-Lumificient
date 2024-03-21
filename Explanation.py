@@ -148,7 +148,7 @@ def getExplanation(prolog):
             text = text + "has closed the windows.\n"
         else:
             if int(sensors['outside_temperature']) < int(preferenceTemp[0]['V']):
-                text = text + "has closed the windowsd and has turned on the air conditioning because the temperature outside is greater than the temperature inside.\n"
+                text = text + "has closed the windows and has turned on the air conditioning because the temperature outside is greater than the temperature inside.\n"
             else:
                 text = text + "has closed the windows and has turned on the radiator because the temperature outside is less than the temperature inside.\n"
     else:
