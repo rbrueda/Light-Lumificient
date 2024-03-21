@@ -157,6 +157,13 @@ def show_profile():
      window3.mainloop()
 
 
+    #butler = Butler()
+    #print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.AStarTemp(20,10)))
+
+
+
+
+
 button_simulate = tk.Button(frame1, text="Profile", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=show_profile)
 button_simulate.place(x=20, y=20)
 
@@ -178,7 +185,7 @@ action_combobox["state"] = "readonly"
 
 
 # Displaying original simulation's effector values
-#? what do the numbers actually mean? Like AC=1 means? R=7 means? Set to 7deg? At level 7? Turned on 7 times?
+#? what do the numbers actually mean? Like AC=1 means? R=7 means? Set to 7deg? At level 7? Turned on 7 times? -- RESPONSE: means a level or scale from 0-30 (since temperature can range from 0-30)
 Effector.generete_random_effectors(prolog)
 effectors = Effector.getAllEffectors(prolog)
 i=0
@@ -210,10 +217,12 @@ vals[5] = lightVals[0]['L2']
 vals[6] = lightVals[0]['L3']
 vals[7] = lightVals[0]['L4']
 
+AStarValues = []
+
 for i,v in enumerate(vals):
      label_effector_value = tk.Label(frame4, text=v, font=("Microsoft YaHei",10))
+     AStarValues.append(v)
      label_effector_value.grid(row=i, column=2, pady=7, padx=10)
-
 
 def select_action(event):
      logic = []
@@ -235,10 +244,14 @@ def select_action(event):
      #this should be from astar algorithm
           
      print(action_selected.get())
+
+     #return the list of values from showAStar()
+     global AStarValues
+
      value2 = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0] 
 
 
-     data = DataVisualization(logic, value2)
+     data = DataVisualization(logic, AStarValues)
      
      
      

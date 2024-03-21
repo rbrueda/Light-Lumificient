@@ -7,24 +7,6 @@ setSensorValue(outside_wind, 6)
 setSensorValue(outside_rain, 0)
 setEffector(rs1,0).
 setEffector(rs2,0).
-setEffector(l1,0).
-setEffector(l2,0).
-setEffector(l3,0).
-setEffector(l4,0).
-setEffector(w1,0).
-setEffector(w2,0).
-setEffector(r,25).
-setEffector(ac,0).
-setEffector(w1,0).
-setEffector(w2,0).
-setEffector(r,25).
-setEffector(ac,0).
-set(sleep, light).
-set(sleep, temp).
-set(sleep, wind).
-set(sleep, noise).
-setEffector(rs1,0).
-setEffector(rs2,0).
 setEffector(l1,5).
 setEffector(l2,5).
 setEffector(l3,5).
