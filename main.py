@@ -157,31 +157,6 @@ def show_profile():
      window3.mainloop()
 
 
-#ac(AC), radiator(R), window1(W1), window2(W2), L1-4, RS1/2 ???
-def showAstar():
-     print("showing astar vals")
-     Effector.generete_random_effectors(prolog)
-     effectors = Effector.getAllEffectors(prolog)
-     labels = ["AC", "R", "W1", "W2", "L1", "L2", "L3", "L4", "RS1", "RS2"]
-     i=0
-     for k, v in effectors.items():
-          k=k.upper()
-          label_effector_name = tk.Label(frame4, text=k, font=("Microsoft YaHei",10))
-          label_effector_name.grid(row=i, column=0, pady=7, padx=10)
-
-          label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
-          label_effector_value.grid(row=i, column=1, pady=7, padx=10)
-
-          i=i+1
-
-
-    #butler = Butler()
-    #print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.AStarTemp(20,10)))
-
-
-
-
-
 button_simulate = tk.Button(frame1, text="Profile", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=show_profile)
 button_simulate.place(x=20, y=20)
 
