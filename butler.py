@@ -264,7 +264,6 @@ class Butler:
                         
     # Temperature A*
     def AStarTemp(self, goal, outside):
-    def AStarTemp(self, goal, outside):
     
         # initialise
         minCosts = [99999 for i in range(self.MAXTEMP)]                  #value at index i will indicate minimum cost (energy+distance from goal) to reach temperature i
