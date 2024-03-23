@@ -12,6 +12,7 @@ import Profile
 from pyswip import Prolog
 from Sensor import *
 from datavisualization import DataVisualization
+from butler import Butler                         #FIXME: remove extra testing code in butler.py [it runs when imported]
 
 #empty dictionary to store user preferences
 new_preference={}
@@ -173,20 +174,62 @@ action_combobox["values"] = ["study", "movie", "sleep", "music", "clean"]
 action_combobox.pack(pady=5)
 action_combobox["state"] = "readonly"
 
+def displayResults(selectedAction):
+    # Displaying original simulation's effector values
+    #? what do the numbers actually mean? Like AC=1 means? R=7 means? Set to 7deg? At level 7? Turned on 7 times?
+    Effector.generete_random_effectors(prolog)
+    effectors = Effector.getAllEffectors(prolog)
+    i=0
+    for k, v in effectors.items():
+        k=k.upper()
+        label_effector_name = tk.Label(frame4, text=k, font=("Microsoft YaHei",10))
+        label_effector_name.grid(row=i, column=0, pady=7, padx=10)
 
-Effector.generete_random_effectors(prolog)
-effectors = Effector.getAllEffectors(prolog)
-i=0
-for k, v in effectors.items():
-    k=k.upper()
-    label_effector_name = tk.Label(frame4, text=k, font=("Microsoft YaHei",10))
-    label_effector_name.grid(row=i, column=0, pady=7, padx=10)
+        label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
+        label_effector_value.grid(row=i, column=1, pady=7, padx=10)
 
-    label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
-    label_effector_value.grid(row=i, column=1, pady=7, padx=10)
+        i=i+1
 
-    i=i+1
 
+    # Displaying A* effector values
+    #* idk what the old values actually mean, but for temp: AC/R value will indicate the number of times it was turned on. 
+    #* altho in general more useful comparison metric would be how long did it take to reach our target compared to above (len(path)), or cost of ours vs theirs, but idk what theirs is... unless we calculate it ourselves (not hard tbf). ig thats a somewhere else problem tho
+    vals = [0 for i in range(10)]                     #AC, R, W1, W2, L1, L2, L3, L4, RS1, RS2
+    butler = Butler()                                 
+
+    if selectedAction == "study":
+        goalTemp = butler.study_temperature
+        goalLight = butler.study_brightness
+    elif selectedAction == "movie":       #?are we taking this one out - causes err since not in if in astarlight
+        goalTemp = butler.movie_temperature
+        goalLight = butler.movie_brightness
+    elif selectedAction == "sleep":
+        goalTemp = butler.sleep_temperature
+        goalLight = butler.sleep_brightness
+    elif selectedAction == "music":
+        goalTemp = butler.music_temperature
+        goalLight = butler.music_brightness
+    else:
+        goalTemp = butler.clean_temperature
+        goalLight = butler.clean_brightness
+
+    tempVals = butler.AStarTemp(goalTemp,butler.outside_temperature)               
+    vals[0] = tempVals[3].count(str(butler.COOL))     #gets number of time ac was used to reach user's target goal based on outside temperature *could just return these from astar in the future, but for now not sure what we'll need later
+    vals[1] = tempVals[3].count(str(butler.HEAT))
+
+    #! problem: goal and outside are either same, or goal < outside; so lights are always just 0000
+    print("goallight", goalLight, "outside", butler.outside_brightness)
+    lightVals = butler.AStarLight({'L1': 0, 'L2': 0, 'L3': 0, 'L4': 0}, goalLight, butler.outside_brightness, action_combobox.get(), False)          
+    vals[4] = lightVals[0]['L1']
+    vals[5] = lightVals[0]['L2']
+    vals[6] = lightVals[0]['L3']
+    vals[7] = lightVals[0]['L4']
+
+    print("lightvals:",lightVals)
+
+    for i,v in enumerate(vals):
+        label_effector_value = tk.Label(frame4, text=v, font=("Microsoft YaHei",10))
+        label_effector_value.grid(row=i, column=2, pady=7, padx=10)
 
 
 def select_action(event):
@@ -211,6 +254,7 @@ def select_action(event):
      print(action_selected.get())
      value2 = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0] 
 
+     displayResults(action_selected.get())
 
      data = DataVisualization(logic, value2)
      
@@ -219,6 +263,8 @@ def select_action(event):
 
 
 action_combobox.bind("<<ComboboxSelected>>", select_action)
+selectedAction = action_selected.get()
+
 
 photo = ImageTk.PhotoImage(file='pianta stanza.png')
 label_image = tk.Label(frame3, image=photo, pady=0)

@@ -189,7 +189,7 @@ class Butler:
         while not q.empty():
             #get the min element using the priorty queue
             curr = q.get()
-            print(f"current successor: {curr}")
+            #print(f"current successor: {curr}")
 
             # round brightness to a whole number
             successor_brightness = round(curr[1])
@@ -251,7 +251,7 @@ class Butler:
         return 0 if choice == self.REST else self.ENERGYCOST
                         
     # Temperature A*
-    def aStar(self, goal, outside):
+    def AStarTemp(self, goal, outside):
     
         # initialise
         minCosts = [99999 for i in range(self.MAXTEMP)]                  #value at index i will indicate minimum cost (energy+distance from goal) to reach temperature i
@@ -288,4 +288,4 @@ result = butler.AStarLight(initialLights, targetBrightness, outsideBrightness, o
 print(result[0])
 
 print("\n")
-print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.aStar(20,10)))
+print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.AStarTemp(20,10)))

@@ -4,7 +4,6 @@ from weather import Weather
 import time
 
 import random
-
 # retrieves all sensors and htier values form prolog
 def getAllSensor(prolog):
     sensorList = list(prolog.query("sensor(X,Y)"))
@@ -44,12 +43,11 @@ def generete_random_sensors(prolog):
 
     f = open("logActions.txt", "w")
     f2 = open("sensorvals.txt", "w")
-
     for k, v in sensors.items():
         if v[0] == 'light':
             if k=='outside_brightness':
                 # change this value to a reasonable value -- not just random -- we will use percentage of cloud cover for this
-                n = 100 - int(weather.cloudiness)
+                n = 100 - int(weather.cloudiness)*0.80
                 n = int(n/10)
                 setSensorValue(k, n, prolog)
 
