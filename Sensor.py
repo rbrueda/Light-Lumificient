@@ -48,11 +48,10 @@ def generete_random_sensors(prolog):
         if v[0] == 'light':
             if k=='outside_brightness':
                 # change this value to a reasonable value -- not just random -- we will use percentage of cloud cover for this
-                n = 100 - int(weather.cloudiness)
+                #assumption -->cloudiness effect 80% of outside brightness
+                n = 100 - int(weather.cloudiness)*0.8
                 n = int(n/10)
                 setSensorValue(k, n, prolog)
-
-
 
                 # december
                 if date.month in [12]:
