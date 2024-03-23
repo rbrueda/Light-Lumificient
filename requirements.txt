@@ -2,3 +2,5 @@ pandas
 matplotlib
 tk
 DateTime
+numpy
+pyswip

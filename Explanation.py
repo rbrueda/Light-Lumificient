@@ -4,7 +4,6 @@ sensors = {}
 effectors = {}
 
 # this reads sensor values from a log file (logActions.txt) to upate sensors dictionary
-# TO DO: use our data inside of this one
 def getSensorValues():
     f = open("logActions.txt", "r")
     lines = f.readlines()
@@ -37,7 +36,6 @@ def getEffectorsValue():
 
 # think this is interacting with prolog code
 # generates an "explanation" based off current sensor and effector values and user preferences regarding actions
-# TO DO (if time): debug error message from button "Ask Explanation"
 def getExplanation(prolog):
     print(sensors)
     print(effectors)
@@ -150,7 +148,7 @@ def getExplanation(prolog):
             text = text + "has closed the windows.\n"
         else:
             if int(sensors['outside_temperature']) < int(preferenceTemp[0]['V']):
-                text = text + "has closed the windowsd and has turned on the air conditioning because the temperature outside is greater than the temperature inside.\n"
+                text = text + "has closed the windows and has turned on the air conditioning because the temperature outside is greater than the temperature inside.\n"
             else:
                 text = text + "has closed the windows and has turned on the radiator because the temperature outside is less than the temperature inside.\n"
     else:

@@ -13,6 +13,7 @@ from pyswip import Prolog
 from Sensor import *
 from datavisualization import DataVisualization
 from butler import Butler                         #FIXME: remove extra testing code in butler.py [it runs when imported]
+from butler import Butler                         #FIXME: remove extra testing code in butler.py [it runs when imported]
 
 #empty dictionary to store user preferences
 new_preference={}
@@ -155,6 +156,13 @@ def show_profile():
      window3.mainloop()
 
 
+    #butler = Butler()
+    #print("Total cost: {}\tFinal temp: {}\tEnergy cost: {}\tPath: {}".format(*butler.AStarTemp(20,10)))
+
+
+
+
+
 button_simulate = tk.Button(frame1, text="Profile", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=show_profile)
 button_simulate.place(x=20, y=20)
 
@@ -252,11 +260,15 @@ def select_action(event):
      #this should be from astar algorithm
           
      print(action_selected.get())
+
+     #return the list of values from showAStar()
+     global AStarValues
+
      value2 = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0] 
 
      displayResults(action_selected.get())
 
-     data = DataVisualization(logic, value2)
+     data = DataVisualization(logic, AStarValues)
      
      
      

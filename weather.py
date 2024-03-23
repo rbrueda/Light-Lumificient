@@ -1,5 +1,5 @@
 import requests
-import datetime
+from datetime import datetime
 
 class Weather:
     def __init__(self):
@@ -21,34 +21,18 @@ class Weather:
             # Parse the JSON response
             data = response.json()
             
-            # Extract relevant information from the response
-            # the description could also be important for training, especially to check if it is dark or sunny outside
+            # the description of current weather forecast
             self.weather_description = data['weather'][0]['description']
             temperature_kelvin = data['main']['temp']
             #convert to celsius and round to 1 decimal place
             self.temperature = round(temperature_kelvin - 273.15, 1) 
-            self.humidity = data['main']['humidity']
+
+            # speed of wind from outside
             self.wind_speed = data['wind']['speed']
-            #time of sunrise - to later if time for a continuous automation system -- or for updating preferences
-            sunrise = data['sys']['sunrise']
-            self.sunrise_time = datetime.datetime.utcfromtimestamp(sunrise)
-            sunset = data['sys']['sunset']
-            self.sunset_time = datetime.datetime.utcfromtimestamp(sunset)
+
+            # percentage of cloud cover
             self.cloudiness = data['clouds']['all']
-            # # find formula to represent formula for light brightness given light brightness and 
 
-            
-            # just for tracing -  Print the weather information
-            # print(f'Weather in {city}:')
-            # print(f'Description: {weather_description}')
-            # print(f'Temperature: {temperature} °C')
-            # print(f'Humidity: {humidity}%')
-            # print(f'Wind Speed: {wind_speed} m/s')
-            # print(f'Cloudiness: {cloudiness}%')
-            # print(f'Sunrise time: {sunrise_time}')
-            # print(f'Sunset time: {sunset_time}')
-
-            # heuristics: educated guess -- we can use Percentage of cloud cover.
 
         #if this happens during sensor process in smart home, use old variables
         else:

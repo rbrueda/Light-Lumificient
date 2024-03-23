@@ -2,7 +2,6 @@ from pyswip import Prolog
 import random
 
 # retrieves all effectors and their values from Prolog
-#parsws them to a dictionary??
 def getAllEffectors(prolog):
     effectorList = list(prolog.query("effector(X,Y)"))
     dictEffector = {}
@@ -29,15 +28,19 @@ def setEffectorValue(effectorID, value, prolog):
     old_value = str(getEffectorValue(effectorID, prolog))
     list(prolog.query("replace_existing_fact(effectorValue(" + str(effectorID) +" ,"+str(old_value)+"), effectorValue(" + str(effectorID)+ ", "+str(value)+"))"))
     
-# think this will be effected but whatever A* algorithm outputs based off sensor values
+# this generates random effectors when the simulationd starts
 def generete_random_effectors(prolog):
     sensors = getAllEffectors(prolog)
     for k, v in sensors.items():
         if v[0] == 'light':
-            setEffectorValue(k, random.randint(0,10), prolog)
+            n = random.randint(0, 10)
+            print(f"n1: {n}")
+            setEffectorValue(k, n, prolog)
         elif v[0] == 'temp':
-            # TO DO: change!! - -heuristics
-            setEffectorValue(k, random.randint(1,50), prolog)
+            n = random.randint(1, 50)
+            print(f"n2: {n}")
+            setEffectorValue(k, n, prolog)
+
 
 # reset all effectod to zero
 def resetEffectors(prolog):
