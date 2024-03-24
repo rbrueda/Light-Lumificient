@@ -1,3 +1,5 @@
+# Purpose: get inputs from outside environment
+
 import requests
 from datetime import datetime
 

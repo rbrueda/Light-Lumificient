@@ -1,3 +1,5 @@
+# Purpose: get inputs from environment
+
 from pyswip import Prolog
 import datetime 
 from weather import Weather
@@ -31,6 +33,8 @@ def setSensorValue(sensorID, value, prolog):
     list(prolog.query("replace_existing_fact(sensorValue(" + str(sensorID) +" ,"+str(old_value)+"), sensorValue(" + str(sensorID)+ ", "+str(value)+"))." ))
     
 
+    
+
 # sensors check current percepts of room
 def generete_random_sensors(prolog):
     sensors = getAllSensor(prolog)
@@ -43,6 +47,7 @@ def generete_random_sensors(prolog):
 
     f = open("logActions.txt", "w")
     f2 = open("sensorvals.txt", "w")
+    f3 = open("nightstatus.txt", "w")
     for k, v in sensors.items():
         if v[0] == 'light':
             if k=='outside_brightness':
@@ -50,6 +55,7 @@ def generete_random_sensors(prolog):
                 n = 100 - int(weather.cloudiness)*0.80
                 n = int(n/10)
                 setSensorValue(k, n, prolog)
+                flag = 0
 
                 # december
                 if date.month in [12]:
@@ -57,64 +63,88 @@ def generete_random_sensors(prolog):
                     if (timestamp >= datetime.time(18, 40, 0) or timestamp <= datetime.time(6, 0, 0) ):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # january
                 if date.month in [1]:
                     if (timestamp >= datetime.time(19, 0, 0) or timestamp <= datetime.time(6, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # february
                 if date.month in [2]:
                     if (timestamp >= datetime.time(19, 30, 0) or timestamp <= datetime.time(6, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # march
                 if date.month in [3]:
-                    if (timestamp >= datetime.time(20, 30, 0) or timestamp <= datetime.time(6, 0, 0)):
-                        print("here")
+                    if (timestamp >= datetime.time(20, 0, 0) or timestamp <= datetime.time(6, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # april
                 if date.month in [4]:
                     if (timestamp >= datetime.time(21, 30, 0) or timestamp <= datetime.time(5, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # may
                 if date.month in [5]:
                     if (timestamp >= datetime.time(22, 30, 0) or timestamp <= datetime.time(4, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # june
                 if date.month in [6]:
                     if (timestamp >= datetime.time(23, 0, 0) or timestamp <= datetime.time(4, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # july
                 if date.month in [7]:
                     if (timestamp >= datetime.time(23, 0, 0) or timestamp <= datetime.time(4, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # august
                 if date.month in [8]:
                     if (timestamp >= datetime.time(22, 30, 0) or timestamp <= datetime.time(5, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 # september
                 if date.month in [9]:
                     if (timestamp >= datetime.time(21, 30, 0) or timestamp <= datetime.time(5, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 #october
                 if date.month in [10]:
-                    if (timestamp >= datetime.time(20, 30, 0) or timestamp <= datetime.time(6, 0, 0)):
+                    if (timestamp >= datetime.time(20, 0, 0) or timestamp <= datetime.time(6, 0, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
                 #november
                 if date.month in [11]:
                     if (timestamp >= datetime.time(19, 0, 0) or timestamp <= datetime.time(5, 30, 0)):
                         n = 0
                         setSensorValue(k, n, prolog)
+                        flag = -1
+                        f3.write("true")
 
-
+                if (flag != -1):
+                    f3.write("false")
 
             else: #inside brightness
                 n = 5 #default value - 50%
@@ -150,3 +180,4 @@ def generete_random_sensors(prolog):
 
     f.close()
     f2.close()
+    f3.close()

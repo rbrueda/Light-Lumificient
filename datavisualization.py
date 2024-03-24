@@ -1,8 +1,9 @@
+# Purpsse: compare results for both A* (new simulator) and logic (original simulator) results
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np 
 
-#this class shows all the resulting output data for both A* and logic
 class DataVisualization:
     def __init__(self, value1, value2):
         

@@ -1,3 +1,5 @@
+# Purpose: get user-preferred variables from user
+
 def getProfile(prolog):
     actions=['study', 'movie', 'sleep', 'clean', 'music']
 
@@ -10,7 +12,7 @@ def getProfile(prolog):
 
     for act in actions:
         if act=="movie":
-             action="watching a movie "
+            action="watching a movie "
         elif act=="music":
             action="listening music"
         else: 

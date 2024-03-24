@@ -1,3 +1,5 @@
+# Purpose: extracts outputs for simulator
+
 from pyswip import Prolog
 import random
 

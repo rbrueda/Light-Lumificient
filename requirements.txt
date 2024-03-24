@@ -4,3 +4,4 @@ tk
 DateTime
 numpy
 pyswip
+scipy

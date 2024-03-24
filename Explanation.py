@@ -1,4 +1,4 @@
-# seems like this code is running error when "Ask Explanation" is clicked -- we might not need this but if htere is time we can fix this error
+# Purpose: gets an explanation of results for logic-related code (original simulator results)
 
 sensors = {}
 effectors = {}
