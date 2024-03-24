@@ -174,11 +174,10 @@ action_combobox = ttk.Combobox(frame1, textvariable=action_selected)
 action_combobox["values"] = ["study", "movie", "sleep", "music", "clean"]
 action_combobox.pack(pady=5)
 action_combobox["state"] = "readonly"
-vals = []
 
 def displayResults(selectedAction):
+    logic = []
     # Displaying original simulation's effector values
-    #? what do the numbers actually mean? Like AC=1 means? R=7 means? Set to 7deg? At level 7? Turned on 7 times?
     Effector.generete_random_effectors(prolog)
     effectors = Effector.getAllEffectors(prolog)
     i=0
@@ -188,14 +187,13 @@ def displayResults(selectedAction):
         label_effector_name.grid(row=i, column=0, pady=7, padx=10)
 
         label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
+        logic.append(v[1])
         label_effector_value.grid(row=i, column=1, pady=7, padx=10)
 
         i=i+1
 
 
     # Displaying A* effector values
-    #* idk what the old values actually mean, but for temp: AC/R value will indicate the number of times it was turned on. 
-    global vals
     vals = [0 for i in range(10)]                     #AC, R, W1, W2, L1, L2, L3, L4, RS1, RS2
     butler = Butler()                                 
 
@@ -245,10 +243,11 @@ def displayResults(selectedAction):
     for i,v in enumerate(vals):
         label_effector_value = tk.Label(frame4, text=v, font=("Microsoft YaHei",10))
         label_effector_value.grid(row=i, column=2, pady=7, padx=10)
+
+    return [logic, vals]
     
 
 def select_action(event):
-    logic = []
     Effector.resetEffectors(prolog)
     Effector.checkPreferences(action_selected.get(), prolog)
     effectors = Effector.getAllEffectors(prolog)
@@ -259,20 +258,18 @@ def select_action(event):
         label_effector_name.grid(row=i, column=0, pady=7, padx=10)
 
         label_effector_value = tk.Label(frame4, text=v[1], font=("Microsoft YaHei",10))
-        logic.append(v[1])
         label_effector_value.grid(row=i, column=1, pady=7, padx=10)
 
         i=i+1
      
     #this should be from astar algorithm
     print(action_selected.get())
+    
 
-    #return the list of values from displayResults()
-    global vals
+    [logic, astar] = displayResults(action_selected.get())
 
-    displayResults(action_selected.get())
 
-    data = DataVisualization(logic, vals)
+    data = DataVisualization(logic, astar)
 
 
 

@@ -3,5 +3,5 @@ inside_brightness,5
 inside_temperature,22
 outside_temperature,11
 outside_noise,11
-outside_wind,2
+outside_wind,1
 outside_rain,0

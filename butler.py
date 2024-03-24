@@ -253,8 +253,18 @@ class Butler:
         return 0 if choice == self.REST else self.ENERGYCOST
                         
     # Temperature A*
-    def AStarTemp(self, goal, outside):
-    
+    def AStarTemp(self, goal, outside):  
+        goal = round(goal * (50/30))
+        outside = round(outside * (50/30))
+
+        # edge case --> so we can output a result from 1-50
+        if (goal == 0):
+            goal = 1
+        
+        if (outside == 0):
+            outside = 1
+        
+
         # initialise
         minCosts = [99999 for i in range(self.MAXTEMP*2)]                  #value at index i will indicate minimum cost (energy+distance from goal) to reach temperature i
         q = queue.PriorityQueue()

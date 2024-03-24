@@ -1,4 +1,4 @@
-# Purpsse: compare results for both A* (new simulator) and logic (original simulator) results
+# Purpose: compare results for both A* (new simulator) and logic (original simulator) results
 
 import pandas as pd
 import matplotlib.pyplot as plt
