@@ -83,7 +83,6 @@ class Contribution:
 
             self.outsideBrightnessContribution = self.ratio_W1 + self.ratio_W2
             print(f"outsideBrightness contribution: {self.outsideBrightnessContribution}") #make up 40% of total brightness from outside
-
             print(f"L1 Total Light Contribution: {self.ratio_L1}")
             print(f"L2 Total Light Contribution: {self.ratio_L2}")
             print(f"L3 Total Light Contribution: {self.ratio_L3}")

@@ -177,10 +177,14 @@ action_combobox["values"] = ["study", "movie", "sleep", "music", "clean"]
 action_combobox.pack(pady=5)
 action_combobox["state"] = "readonly"
 
+Effector.generete_random_effectors(prolog)
+effectors = Effector.getAllEffectors(prolog)
+
 def displayResults(selectedAction):
     logic = []
     # Displaying original simulation's effector values
-    Effector.generete_random_effectors(prolog)
+    Effector.resetEffectors(prolog)
+    Effector.checkPreferences(action_selected.get(), prolog)
     effectors = Effector.getAllEffectors(prolog)
     i=0
     for k, v in effectors.items():
