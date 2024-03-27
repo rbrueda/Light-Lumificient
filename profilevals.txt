@@ -1,7 +1,7 @@
-study,light,10
-study,temp,20
-study,wind,3
-study,noise,0
+study,light,1
+study,temp,16
+study,wind,0
+study,noise,1
 movie,light,5
 movie,temp,25
 movie,wind,3

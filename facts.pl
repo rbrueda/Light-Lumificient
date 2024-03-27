@@ -104,7 +104,7 @@ preference(clean, temp, 20, [r, ac, w1,w2]). /* open windows */
 preference(clean, wind, 5, [w1,w2]). /* open windows for wind*/
 preference(clean, noise, 6, [ac, w1, w2]). /* close windows for noise*/
 
-preference(music, light, 5, [l1, l2, l3, l4, rs1, rs2]). /* if study only desk light */
+preference(music, light, 5, [l1, l2, l3, l4, rs1, rs2]). /* if music uses all lights */
 preference(music, temp, 20, [ac, r, w1, w2]).
 preference(music, wind, 0, [w1,w2]). /* close windows for wind*/
 preference(music, noise, 0, [ac, w1, w2]).

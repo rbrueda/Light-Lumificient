@@ -30,17 +30,15 @@ def setEffectorValue(effectorID, value, prolog):
     old_value = str(getEffectorValue(effectorID, prolog))
     list(prolog.query("replace_existing_fact(effectorValue(" + str(effectorID) +" ,"+str(old_value)+"), effectorValue(" + str(effectorID)+ ", "+str(value)+"))"))
     
-# this generates random effectors when the simulationd starts
+# this generates random effectors when the simulation starts
 def generete_random_effectors(prolog):
     sensors = getAllEffectors(prolog)
     for k, v in sensors.items():
         if v[0] == 'light':
             n = random.randint(0, 10)
-            print(f"n1: {n}")
             setEffectorValue(k, n, prolog)
         elif v[0] == 'temp':
             n = random.randint(1, 50)
-            print(f"n2: {n}")
             setEffectorValue(k, n, prolog)
 
 
