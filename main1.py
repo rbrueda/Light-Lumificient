@@ -150,8 +150,8 @@ def show_profile():
     label_profile = tk.Label(window3, text=profile, wraplength= 400, font=("Microsoft YaHei",10))
     label_profile.pack()
 
-    button_modify_profile= tk.Button(window3, text="Modify", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=modify_profile)
-    button_modify_profile.place(x=310, y=650)
+    #button_modify_profile= tk.Button(window3, text="Modify", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=modify_profile)
+    #button_modify_profile.place(x=310, y=650)
 
     window3.mainloop()
 
