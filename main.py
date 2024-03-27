@@ -123,20 +123,18 @@ def modify_profile():
     def new_profile(event):
         new_profile={}
         new_profile['action'] = modify_action_combobox.get()
-        print(f"action: {new_profile['action']}")
         new_profile['light'] = light_combobox.get()
-        print(f"desired light level: {new_profile['light']}")
         new_profile['temp'] = temp_combobox.get()
-        print(f"desired temp level: {new_profile['temp']}")
         new_profile['wind'] = wind_combobox.get()
-        print(f"desired wind level: {new_profile['wind']}")
         new_profile['noise'] = noise_combobox.get()
-        print(f"desired noise level: {new_profile['noise']}")
 
-        # def update_facts():
-        #     Profile.updateFacts(prolog, new_profile)
+        #this section will be activate once button "confirm" button is clicked 
+        def update_facts():
+            Profile.update_preference(new_profile)
+            
+        button_confirm= tk.Button(window4, text="Confirm", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=update_facts)
 
-        button_confirm= tk.Button(window4, text="Confirm", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=new_profile)
+        # button_confirm= tk.Button(window4, text="Confirm", bg='#BCA6E8', font=("Microsoft YaHei",12, BOLD), command=update_facts)
         button_confirm.grid(row=5, column=1)
 
     modify_action_combobox.bind("<<ComboboxSelected>>", new_profile)
