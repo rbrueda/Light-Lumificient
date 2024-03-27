@@ -1,3 +1,5 @@
+from pyswip import Prolog
+
 # Purpose: get user-preferred variables from user
 
 def getProfile(prolog):
@@ -32,20 +34,47 @@ def getProfile(prolog):
     
     return text
 
-def updateFacts(prolog, new_profile):
-    if new_profile["light"] != "":
-        old_preference_light = list(prolog.query("preference(" + new_profile['action']+", light, V, E)."))
-        list(prolog.query("replace_existing_fact(preference(" + new_profile['action']+ ", light," + str(old_preference_light[0]['V']) + ", " + str(old_preference_light[0]['E']) +"), preference(" + new_profile['action']+ ", light, " + new_profile['light']+ "," + str(old_preference_light[0]['E']) +"))"))
+#function that changes the user preference values
+def update_preference(new_profile):
+    activity = new_profile['action']
+    print(f"activity: {activity}")
+    prolog = Prolog()
+    prolog.consult('facts.pl')  # Replace 'your_prolog_file.pl' with your Prolog file name
+
+    #different variables and their associated effectors based on different action
+    #value[0]: study
+    #value[1]: sleep
+    #value[2]: movie
+    #value[3]: clean
+    #value[4]: music
+    variableLists = {'light': [['l2', 'rs1'], ['l1', 'l2', 'l3', 'l4', 'rs1', 'rs2'], ['l3', 'l4', 'rs1', 'rs2'], ['l1', 'rs1', 'rs2'], ['l1', 'l2', 'l3', 'l4', 'rs1', 'rs2']],
+                    'temp': [['ac', 'r', 'w1', 'w2'], ['ac', 'r', 'w1', 'w2'], ['r', 'w1', 'w2', 'ac'], ['r', 'ac', 'w1', 'w2'], ['ac', 'r', 'w1', 'w2']],
+                    'wind': [['w1', 'w2'], ['w1', 'w2'], ['w1', 'w2'], ['w1', 'w2'], ['w1', 'w2']],
+                    'noise': [['ac', 'w1', 'w2'], ['ac', 'w1', 'w2'], ['ac', 'w1', 'w2'], ['ac', 'w1', 'w2'], ['ac', 'w1', 'w2']]
+                    }
+
+    for variable in variableLists.keys():
+
+        # Retract old preference facts
+        query_retract = f"retract(preference({activity}, {variable}, _, _))"
+        list(prolog.query(query_retract))
+
+        # Assert new preference facts
+        #use the same list of effectors from the orignal preference
+        if (activity == 'study'):
+            query_assert = f"assertz(preference({activity}, {variable}, {new_profile[variable]}, {variableLists.get(variable)[0]}))"
+        
+        elif (activity == 'sleep'):
+            query_assert = f"assertz(preference({activity}, {variable}, {new_profile[variable]}, {variableLists.get(variable)[1]}))"
+        
+        elif (activity == 'movie'):
+            query_assert = f"assertz(preference({activity}, {variable}, {new_profile[variable]}, {variableLists.get(variable)[2]}))"
+        
+        elif (activity == 'clean'):
+            query_assert = f"assertz(preference({activity}, {variable}, {new_profile[variable]}, {variableLists.get(variable)[3]}))"
+        
+        else: #if option is music
+            query_assert = f"assertz(preference({activity}, {variable}, {new_profile[variable]}, {variableLists.get(variable)[4]}))"
     
-    if new_profile["temp"] != "":
-        old_preference_temp = list(prolog.query("preference(" + new_profile['action']+", temp, V, E)."))
-        list(prolog.query("replace_existing_fact(preference(" + new_profile['action']+ ", temp," + str(old_preference_temp[0]['V']) + ", " + str(old_preference_temp[0]['E']) +"), preference(" + new_profile['action']+ ", temp, " + new_profile['temp']+ "," + str(old_preference_temp[0]['E']) +"))"))
-    
-    if new_profile["wind"] != "":
-        old_preference_wind = list(prolog.query("preference(" + new_profile['action']+", wind, V, E)."))
-        list(prolog.query("replace_existing_fact(preference(" + new_profile['action']+ ", wind," + str(old_preference_wind[0]['V']) + ", " + str(old_preference_wind[0]['E']) +"), preference(" + new_profile['action']+ ", wind, " + new_profile['temp']+ "," + str(old_preference_wind[0]['E']) +"))"))
-    
-    if new_profile["noise"] != "":
-        old_preference_noise = list(prolog.query("preference(" + new_profile['action']+", noise, V, E)."))
-        list(prolog.query("replace_existing_fact(preference(" + new_profile['action']+ ", noise," + str(old_preference_noise[0]['V']) + ", " + str(old_preference_noise[0]['E']) +"), preference(" + new_profile['action']+ ", noise, " + new_profile['noise']+ "," + str(old_preference_noise[0]['E']) +"))"))
-    
+        list(prolog.query(query_assert))
+        print(f"Preference updated: {activity}, {variable} set to {new_profile[variable]}")
