@@ -10,6 +10,8 @@ For the A* algorithm concerning light, the algorithm iterates through every ligh
 
 For the A* algorithm concerning temperature, it manages heating, cooling, and resting actions to achieve the temperature goal.
 
+The results are shown from the two columns on the right where the **left-most column represents logic** results and **right-most column represents A*** results
+
 ## Setup Instructions
 1. Clone the repository:
 ```bash
@@ -41,7 +43,7 @@ pip install -r requirements.txt
 ```
 
 4. Install SWI-Prolog
-Find more info at: https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html \\
+Find more info at: https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html \
 To install SWI-prolog in Linux OS, use:
 ```bash
 sudo add-apt-repository ppa:swi-prolog/stable
