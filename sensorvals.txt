@@ -1,7 +1,7 @@
-outside_brightness,2
+outside_brightness,10
 inside_brightness,5
 inside_temperature,22
 outside_temperature,15
 outside_noise,15
-outside_wind,6
+outside_wind,9
 outside_rain,0

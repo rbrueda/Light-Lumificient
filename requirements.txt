@@ -5,3 +5,5 @@ DateTime
 numpy
 pyswip
 scipy
+requests
+Pillow
