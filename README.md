@@ -26,6 +26,10 @@ pip install virtualenv
 ```bash
 virtualenv venv
 ```
+on Windows you can use:
+```powershell
+py -m virtualenv venv
+```
 - Third, activate virtual environment. 
 On Windows use:
 ```powershell
