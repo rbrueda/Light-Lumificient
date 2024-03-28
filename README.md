@@ -17,7 +17,7 @@ The results are shown from the two columns on the right where the **left-most co
 ```bash
 git clone https://github.com/rbrueda/Light-Lumificient.git
 ```
-2. Setup python virtual environment
+2. Setup python virtual environment (OPTIONAL)
 - First make sure it is installed. Use:
 ```
 pip install virtualenv
@@ -36,7 +36,7 @@ On macOS or Linux use:
 source venv/bin/activate
 ```
 
-3. Install library dependencies
+3. Install library dependencies\
 To install all required dependencies for this project, use:
 ```bash
 pip install -r requirements.txt
@@ -80,12 +80,24 @@ In Linux or Windows, run the command:
 python main1.py
 ```
 
+## Other Notes
+If you having issues with pyswip running, then you must go to your python **site-packages** folder (this should be inside your virtual environment folder, if you are running through a virtual environment, or should be found where you installed Python locally).
 
+Once you find it, you must locate folder called pyswip (if it is not there then it is not installed). Inside this folder you should find python file **core.py**. In around line 587, if you change the line:
+```python
+PL_version = _lib.PL_version
+```
+to
+```python
+PL_version = _lib.PL_version_info
+```
+this could fix the issue.
+
+
+## Screenshots
 ![Screenshot from 2024-03-25 17-56-40](https://github.com/rbrueda/Light-Lumificient/assets/93105329/e9804a7a-8a21-40a1-899d-2668b6418c2b)
 ![Screenshot from 2024-03-25 20-15-03](https://github.com/rbrueda/Light-Lumificient/assets/93105329/28eeb301-30fb-49ef-921a-07653a0f25b3)
 ![Screenshot from 2024-03-27 22-05-26](https://github.com/rbrueda/Light-Lumificient/assets/93105329/c2543865-62fc-4849-afbd-58146a945463)
-
-
 
 ## Video About Project (+ Demo)
 (TO DO: ADD LINK HERE)
