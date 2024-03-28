@@ -10,12 +10,14 @@ For the A* algorithm concerning light, the algorithm iterates through every ligh
 
 For the A* algorithm concerning temperature, it manages heating, cooling, and resting actions to achieve the temperature goal.
 
+The results are shown from the two columns on the right where the **left-most column represents logic** results and **right-most column represents A*** results
+
 ## Setup Instructions
 1. Clone the repository:
 ```bash
 git clone https://github.com/rbrueda/Light-Lumificient.git
 ```
-2. Setup python virtual environment
+2. Setup python virtual environment (OPTIONAL)
 - First make sure it is installed. Use:
 ```
 pip install virtualenv
@@ -34,14 +36,14 @@ On macOS or Linux use:
 source venv/bin/activate
 ```
 
-3. Install library dependencies
+3. Install library dependencies\
 To install all required dependencies for this project, use:
 ```bash
 pip install -r requirements.txt
 ```
 
 4. Install SWI-Prolog
-Find more info at: https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html
+Find more info at: https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html \
 To install SWI-prolog in Linux OS, use:
 ```bash
 sudo add-apt-repository ppa:swi-prolog/stable
@@ -53,10 +55,21 @@ To install with Windows, install package from:
 https://www.swi-prolog.org/download/stable
 
 To install with MacOS:
-(TO DO)
+first, if homebrew is not installed, use command:
+```zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+second, install swi-prolog by typing command:
+```zsh
+brew install swi-prolog
+```
 
+5. Create API key for OpenWeatherMap API
+- Create an account from: https://openweathermap.org/api
+- Once created, go to "API key", and copy the default key
+- Create a new file in the directory you cloned and call it "credentials.txt" and copy that API key in this file (might take a few minutes to work)
 
-4. Run the program
+6. Run the program
 In MacOS, run the command:
 ```zsh
 python main.py
@@ -67,9 +80,24 @@ In Linux or Windows, run the command:
 python main1.py
 ```
 
+## Other Notes
+If you having issues with pyswip running, then you must go to your python **site-packages** folder (this should be inside your virtual environment folder, if you are running through a virtual environment, or should be found where you installed Python locally).
+
+Once you find it, you must locate folder called pyswip (if it is not there then it is not installed). Inside this folder you should find python file **core.py**. In around line 587, if you change the line:
+```python
+PL_version = _lib.PL_version
+```
+to
+```python
+PL_version = _lib.PL_version_info
+```
+this could fix the issue.
+
+
 ## Screenshots
-
-
+![Screenshot from 2024-03-25 17-56-40](https://github.com/rbrueda/Light-Lumificient/assets/93105329/e9804a7a-8a21-40a1-899d-2668b6418c2b)
+![Screenshot from 2024-03-25 20-15-03](https://github.com/rbrueda/Light-Lumificient/assets/93105329/28eeb301-30fb-49ef-921a-07653a0f25b3)
+![Screenshot from 2024-03-27 22-05-26](https://github.com/rbrueda/Light-Lumificient/assets/93105329/c2543865-62fc-4849-afbd-58146a945463)
 
 ## Video About Project (+ Demo)
 (TO DO: ADD LINK HERE)
