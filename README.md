@@ -41,7 +41,7 @@ pip install -r requirements.txt
 ```
 
 4. Install SWI-Prolog
-Find more info at: https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html
+Find more info at: https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html \\
 To install SWI-prolog in Linux OS, use:
 ```bash
 sudo add-apt-repository ppa:swi-prolog/stable
@@ -67,7 +67,10 @@ In Linux or Windows, run the command:
 python main1.py
 ```
 
-## Screenshots
+
+![Screenshot from 2024-03-25 17-56-40](https://github.com/rbrueda/Light-Lumificient/assets/93105329/e9804a7a-8a21-40a1-899d-2668b6418c2b)
+![Screenshot from 2024-03-25 20-15-03](https://github.com/rbrueda/Light-Lumificient/assets/93105329/28eeb301-30fb-49ef-921a-07653a0f25b3)
+![Screenshot from 2024-03-27 22-05-26](https://github.com/rbrueda/Light-Lumificient/assets/93105329/c2543865-62fc-4849-afbd-58146a945463)
 
 
 
