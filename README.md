@@ -55,10 +55,21 @@ To install with Windows, install package from:
 https://www.swi-prolog.org/download/stable
 
 To install with MacOS:
-(TO DO)
+first, if homebrew is not installed, use command:
+```zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+second, install swi-prolog by typing command:
+```zsh
+brew install swi-prolog
+```
 
+5. Create API key for OpenWeatherMap API
+- Create an account from: https://openweathermap.org/api
+- Once created, go to "API key", and copy the default key
+- Create a new file in the directory you cloned and call it "credentials.txt" and copy that API key in this file (might take a few minutes to work)
 
-4. Run the program
+6. Run the program
 In MacOS, run the command:
 ```zsh
 python main.py
