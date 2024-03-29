@@ -2,89 +2,92 @@
 Project for COMP-3710 
 
 ## About
-A smart home simulator used to monitor variables like light, temperature, wind and noise levels in order to produce most energy-efficient results for devices.
+A smart home simulator used to monitor variables like light, temperature, wind, and noise levels in order to produce the most energy-efficient results for devices.
 
-This project is based off a original simulation built on Prolog for logic comparsions (site: https://github.com/andmon97/es-smartHome) where simulation used user preferences to make decision for effector agents. Our simulation builds off this repository to built a comparsion with a new approach that uses two A* search algoriths (light and temperature). These algorithms manage light and temperature levels to get the minimum energy-cost path to the goal. 
+This project is based on an original simulation built on Prolog for logic comparisons (site: https://github.com/andmon97/es-smartHome) where this simulation used user preferences to make decisions for effector agents. Our simulation builds off this repository to build a comparison with a new approach that uses two A* search algorithms (light and temperature). These algorithms manage light and temperature levels to get the minimum energy-cost path to the goal. 
 
 For the A* algorithm concerning light, the algorithm iterates through every light fixture, dynamically adjusting their brightness levels, in order to oversee the usage of light energy and achieve light brightness goal.
 
 For the A* algorithm concerning temperature, it manages heating, cooling, and resting actions to achieve the temperature goal.
 
-The results are shown from the two columns on the right where the **left-most column represents logic** results and **right-most column represents A*** results
+The results are shown from the two columns on the right where the **left column represents logic** results and **right column represents A*** results
 
 ## Setup Instructions
-1. Clone the repository:
-```bash
-git clone https://github.com/rbrueda/Light-Lumificient.git
-```
-2. Setup python virtual environment (OPTIONAL)
-- First make sure it is installed. Use:
-```
-pip install virtualenv
-```
-- Second, create a virtual environment. Use:
-```bash
-virtualenv venv
-```
-on Windows you can use:
-```powershell
-py -m virtualenv venv
-```
-- Third, activate virtual environment. 
-On Windows use:
-```powershell
-venv\Scripts\activate
-```
-On macOS or Linux use:
-```bash
-source venv/bin/activate
-```
 
-3. Install library dependencies\
-To install all required dependencies for this project, use:
-```bash
-pip install -r requirements.txt
-```
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/rbrueda/Light-Lumificient.git
+    ```
 
-4. Install SWI-Prolog
-Find more info at: https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html \
-To install SWI-prolog in Linux OS, use:
-```bash
-sudo add-apt-repository ppa:swi-prolog/stable
-sudo apt-get update
-sudo apt-get install swi-prolog
-```
+2. **Navigate to the Project Directory:**
+    ```bash
+    cd Light-Lumificient
+    ```
 
-To install with Windows, install package from:
-https://www.swi-prolog.org/download/stable
+3. **Setup Python Virtual Environment (Optional):**
+    - First, ensure virtualenv is installed:
+        ```bash
+        pip install virtualenv
+        ```
+    - Second, create a virtual environment:
+        ```bash
+        virtualenv venv
+        ```
+    - Third, activate the virtual environment:
+        ```bash
+        source venv/bin/activate
+        ```
 
-To install with MacOS:
-first, if homebrew is not installed, use command:
-```zsh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-second, install swi-prolog by typing command:
-```zsh
-brew install swi-prolog
-```
+4. **Install Library Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-5. Create API key for OpenWeatherMap API
-- Create an account from: https://openweathermap.org/api
-- Once created, go to "API key", and copy the default key
-- Create a new file in the directory you cloned and call it "credentials.txt" and copy that API key in this file (might take a few minutes to work)
+5. **Installation for Tkinter:**
+    Sometimes tkinter is not detected after installing Python libraries in requirements.txt. To fix the issue, run:
+    ```bash
+    sudo apt-get install python3-tk
+    ```
 
-6. Run the program
-In MacOS, run the command:
-```zsh
-python main.py
-```
+6. **Install SWI-Prolog:**
+    - Find more info at: [SWI-Prolog Installation Guide](https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html)
+    - To install in Linux, ensure SWI-Prolog **8.4.2 or 8.4.3** for compatibility:
+        - Check for available versions (Ubuntu):
+            ```bash
+            apt-cache madison swi-prolog
+            ```
+        - Install the desired version:
+            ```bash
+            sudo apt-get install swi-prolog=8.4.2+dfsg-2ubuntu1
+            ```
+    - To install with MacOS:
+        - Install Homebrew if not installed:
+            ```zsh
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            ```
+        - Install SWI-Prolog:
+            ```zsh
+            brew install swi-prolog
+            ```
 
-In Linux or Windows, run the command:
-```bash
-python main1.py
-```
+7. **Create API Key for OpenWeatherMap API:**
+    - Create an account from: [OpenWeatherMap API](https://openweathermap.org/api)
+    - Once created, go to "API key" and copy the default key
+    - Create a new file in the cloned directory named "credentials.txt" and paste the API key into this file (may take a few minutes to work)
+
+8. **Run the Program:**
+    - In MacOS:
+        ```zsh
+        python main.py
+        ```
+    - In Linux:
+        ```bash
+        python main1.py
+        ```
+
 
 ## Other Notes
+### MacOS Issues
 If you having issues with pyswip running, then you must go to your python **site-packages** folder (this should be inside your virtual environment folder, if you are running through a virtual environment, or should be found where you installed Python locally).
 
 Once you find it, you must locate folder called pyswip (if it is not there then it is not installed). Inside this folder you should find python file **core.py**. In around line 587, if you change the line:
@@ -96,6 +99,14 @@ to
 PL_version = _lib.PL_version_info
 ```
 this could fix the issue.
+
+### Windows OS Issues
+If you are running natively on Windows, you may get an error message similar to below:
+```
+SWI-Prolog: [FATAL ERROR: at Fri Mar 29 12:59:54 2024 Could not find system resources]
+```
+
+A possible fix is to run program using a Virtual Machine with a Linux distro (like Ubuntu) or using WSL.
 
 
 ## Screenshots
