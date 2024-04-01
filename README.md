@@ -115,7 +115,7 @@ A possible fix is to run program using a Virtual Machine with a Linux distro (li
 ![Screenshot from 2024-03-27 22-05-26](https://github.com/rbrueda/Light-Lumificient/assets/93105329/c2543865-62fc-4849-afbd-58146a945463)
 
 ## Video About Project (+ Demo)
-(TO DO: ADD LINK HERE)
+https://www.youtube.com/watch?v=VAvU_nkWC7k 
 
 ## Research Paper
-(TO DO: ADD LINK HERE)
+https://drive.google.com/file/d/17rS3E_lTol5x54aTG_l7Y3O9ZAQxqoVM/view?usp=sharing
